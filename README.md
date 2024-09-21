@@ -1,6 +1,6 @@
-# Overview
+# Clarity Project Overview
 
-The Clarity project is a web application designed to provide advanced fraud detection and monitoring services. It utilizes React for the frontend, with a focus on user experience and data visualization.
+The **Clarity** project is a web application designed to provide advanced fraud detection and monitoring services. It utilizes **React** for the frontend, with a focus on user experience and data visualization.
 
 ## Project Structure
 
@@ -57,12 +57,12 @@ The project is organized into several key directories:
 
 ## Styling
 
-- The application uses Tailwind CSS for styling, allowing for responsive design and utility-based styling.
+- The application uses **Tailwind CSS** for styling, allowing for responsive design and utility-based styling.
 - Custom styles are defined in `index.css` and `App.css`.
 
 ## Routing
 
-- The application uses React Router for navigation between the landing page and the dashboard.
+- The application uses **React Router** for navigation between the landing page and the dashboard.
 - Routes are defined in `App.tsx`.
 
 ## State Management
@@ -73,22 +73,25 @@ The project is organized into several key directories:
 ## Running the Project
 
 1. Clone the repository.
+
+   ```bash
+   git clone <repository-url>
+   ```
+
 2. Install dependencies:
 
    ```bash
    npm install
-
    ```
 
 3. Start the development server:
 
    ```bash
    npm run dev
-
    ```
 
 4. Open the application in your browser at `http://localhost:3000`.
 
 ## Conclusion
 
-The Clarity project provides a comprehensive solution for fraud detection and monitoring, leveraging modern web technologies to deliver a seamless user experience. The modular structure allows for easy maintenance and scalability.
+The **Clarity** project provides a comprehensive solution for fraud detection and monitoring, leveraging modern web technologies to deliver a seamless user experience. The modular structure allows for easy maintenance and scalability.
