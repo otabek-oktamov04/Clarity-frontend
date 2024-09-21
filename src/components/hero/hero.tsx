@@ -128,7 +128,7 @@ export default function Hero() {
                   className="!bg-blue-500 text-white"
                   onClick={() => setIsOpen(true)}
                 >
-                  Get Started
+                  Dashboard
                 </Button>
               </div>
             </nav>

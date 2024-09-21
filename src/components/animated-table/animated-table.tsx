@@ -25,6 +25,35 @@ export default function AnimatedTable() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
+    // Create WebSocket connection
+    const ws = new WebSocket("wss://ws-clarity.systemd.uz/live");
+
+    // Connection opened
+    ws.onopen = () => {
+      console.log("Connected to WebSocket");
+    };
+
+    // Listen for messages
+    ws.onmessage = () => {
+      // const transactionData = JSON.parse(event.data);
+      // setTransactions((prevTransactions) => [
+      //   ...prevTransactions,
+      //   transactionData,
+      // ]);
+    };
+
+    // Handle errors
+    ws.onerror = (error) => {
+      console.error("WebSocket Error:", error);
+    };
+
+    // Clean up on unmount
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       const newTransaction: Transaction = {
         id: Date.now().toString(),
@@ -89,7 +118,7 @@ export default function AnimatedTable() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <TableCell className="relative">
-                  ${transaction.amount.toFixed(2)}
+                  ${transaction?.amount.toFixed(2)}
                   {index === 0 && (
                     <motion.div
                       initial={{ opacity: 1, x: -10 }}

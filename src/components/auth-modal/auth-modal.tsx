@@ -10,9 +10,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { AlertCircle } from "lucide-react";
+import { useLogin } from "@/react-query/hooks/hooks";
+import { ILoginFormInputs } from "@/utils/interfaces/auth.interface";
 
 type FormValues = {
   username: string;
@@ -26,24 +27,24 @@ interface IProps {
 
 export default function AuthModal({ isOpen, onClose }: IProps) {
   const [error, setError] = useState("");
+  const { mutateAsync, isPending } = useLogin();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<ILoginFormInputs>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { username, password } = data;
-    // Here you would typically call your authentication API
-    console.log(username, password);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      mutateAsync(data);
+    } catch {
+      setError("Login or password is incorrect");
+    }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Login</Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Login</DialogTitle>
@@ -88,8 +89,12 @@ export default function AuthModal({ isOpen, onClose }: IProps) {
             </div>
           )}
           <DialogFooter>
-            <Button type="submit" className="h-12 w-full bg-blue-500 ">
-              Login
+            <Button
+              disabled={isPending}
+              type="submit"
+              className="h-12 w-full bg-blue-500 "
+            >
+              {isPending ? "Logging..." : "Login"}
             </Button>
           </DialogFooter>
         </form>

@@ -23,9 +23,18 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { BarChart3, List } from "lucide-react";
+import {
+  BarChart3,
+  ChartAreaIcon,
+  List,
+  LogOutIcon,
+  UserIcon,
+} from "lucide-react";
 import FraudReport from "@/components/fraud-report/fraud-report";
 import AnimatedTable from "@/components/animated-table/animated-table";
+import ModelPerformance from "@/components/model-performance/model-performance";
+import { useAuth } from "@/auth/useAuth";
+import { useGetMe } from "@/react-query/hooks/hooks";
 
 // Mock data for the line chart
 const lineData = [
@@ -58,7 +67,9 @@ const transactionTypesData = [
 // Enhanced mock data for the transaction feed
 
 export const Dashboard = () => {
+  const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("dashboard");
+  const { data: userInfo } = useGetMe();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -195,35 +206,69 @@ export const Dashboard = () => {
         );
       case "reports":
         return <FraudReport />;
+      case "model":
+        return <ModelPerformance />;
       default:
         return null;
     }
+  };
+
+  const handleLogOut = () => {
+    logout();
   };
 
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r">
-        <div className="p-4">
+        <div className="p-4 h-5/6">
           <h2 className="text-2xl font-semibold mb-4">Clarity</h2>
           <Input type="search" placeholder="Search..." className="mb-4" />
-          <nav>
-            <Button
-              variant={activeTab === "dashboard" ? "secondary" : "ghost"}
-              className="w-full justify-start mb-2"
-              onClick={() => setActiveTab("dashboard")}
-            >
-              <BarChart3 className="mr-2 h-4 w-4" />
-              Dashboard
-            </Button>
-            <Button
-              variant={activeTab === "reports" ? "secondary" : "ghost"}
-              className="w-full justify-start mb-2"
-              onClick={() => setActiveTab("reports")}
-            >
-              <List className="mr-2 h-4 w-4" />
-              Reports
-            </Button>
+          <nav className="flex flex-col justify-between h-full ">
+            <div>
+              <Button
+                variant={activeTab === "dashboard" ? "secondary" : "ghost"}
+                className="w-full justify-start mb-2"
+                onClick={() => setActiveTab("dashboard")}
+              >
+                <BarChart3 className="mr-2 h-4 w-4" />
+                Dashboard
+              </Button>
+              <Button
+                variant={activeTab === "reports" ? "secondary" : "ghost"}
+                className="w-full justify-start mb-2"
+                onClick={() => setActiveTab("reports")}
+              >
+                <List className="mr-2 h-4 w-4" />
+                Reports
+              </Button>
+              <Button
+                variant={activeTab === "model" ? "secondary" : "ghost"}
+                className="w-full justify-start mb-2"
+                onClick={() => setActiveTab("model")}
+              >
+                <ChartAreaIcon className="mr-2 h-4 w-4" />
+                Model Performance
+              </Button>
+            </div>
+
+            <div>
+              <Button
+                variant="secondary"
+                className="w-full justify-start mb-2 mt-auto bg-white border-2 border-black"
+              >
+                <UserIcon className="mr-2 h-4 w-4" />
+                {userInfo?.username}
+              </Button>
+              <Button
+                variant="secondary"
+                className="w-full justify-start mb-2 mt-auto bg-red-500 text-white hover:bg-red-600"
+                onClick={handleLogOut}
+              >
+                <LogOutIcon className="mr-2 h-4 w-4" />
+                Log Out
+              </Button>
+            </div>
           </nav>
         </div>
       </aside>

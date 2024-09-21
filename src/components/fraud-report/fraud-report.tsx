@@ -29,7 +29,7 @@ const FraudReport = () => {
     {
       id: 1,
       amount: 1000.0,
-      timestamp: "2023-06-15 14:29:58",
+      timestamp: "2024-06-15 14:29:58",
       type: "Credit Card",
       merchant: "Online Electronics",
       location: "Online",
@@ -44,7 +44,7 @@ const FraudReport = () => {
     {
       id: 2,
       amount: 750.5,
-      timestamp: "2023-06-14 09:15:30",
+      timestamp: "2024-06-14 09:15:30",
       type: "Wire Transfer",
       merchant: "Unknown Recipient",
       location: "International",
@@ -59,7 +59,7 @@ const FraudReport = () => {
     {
       id: 3,
       amount: 500.0,
-      timestamp: "2023-06-13 18:45:22",
+      timestamp: "2024-06-13 18:45:22",
       type: "Debit Card",
       merchant: "ATM Withdrawal",
       location: "New York, NY",
@@ -74,7 +74,7 @@ const FraudReport = () => {
     {
       id: 4,
       amount: 1200.0,
-      timestamp: "2023-06-12 11:30:45",
+      timestamp: "2024-06-12 11:30:45",
       type: "Mobile Payment",
       merchant: "Digital Goods Store",
       location: "Online",
@@ -89,7 +89,7 @@ const FraudReport = () => {
     {
       id: 5,
       amount: 300.75,
-      timestamp: "2023-06-11 20:10:15",
+      timestamp: "2024-06-11 20:10:15",
       type: "Credit Card",
       merchant: "Gas Station",
       location: "Los Angeles, CA",
@@ -113,13 +113,13 @@ const FraudReport = () => {
   ];
 
   const fraudTrendData = [
-    { date: "2023-06-01", count: 5 },
-    { date: "2023-06-02", count: 3 },
-    { date: "2023-06-03", count: 7 },
-    { date: "2023-06-04", count: 2 },
-    { date: "2023-06-05", count: 5 },
-    { date: "2023-06-06", count: 8 },
-    { date: "2023-06-07", count: 6 },
+    { date: "2024-06-01", count: 5 },
+    { date: "2024-06-02", count: 3 },
+    { date: "2024-06-03", count: 7 },
+    { date: "2024-06-04", count: 2 },
+    { date: "2024-06-05", count: 5 },
+    { date: "2024-06-06", count: 8 },
+    { date: "2024-06-07", count: 6 },
   ];
 
   return (
@@ -146,7 +146,7 @@ const FraudReport = () => {
                     `${name} ${(percent * 100).toFixed(0)}%`
                   }
                 >
-                  {fraudStatistics.map((entry, index) => (
+                  {fraudStatistics.map((_, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
