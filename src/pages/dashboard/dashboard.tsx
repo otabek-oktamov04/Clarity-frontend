@@ -14,15 +14,6 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
   Table,
   TableBody,
   TableCell,
@@ -34,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BarChart3, List } from "lucide-react";
 import FraudReport from "@/components/fraud-report/fraud-report";
+import AnimatedTable from "@/components/animated-table/animated-table";
 
 // Mock data for the line chart
 const lineData = [
@@ -64,64 +56,9 @@ const transactionTypesData = [
 ];
 
 // Enhanced mock data for the transaction feed
-const transactionData = [
-  {
-    id: 1,
-    amount: 250.0,
-    timestamp: "2023-06-15 14:30:22",
-    fraud: false,
-    type: "Debit Card",
-    merchant: "Grocery Store",
-    location: "New York, NY",
-    status: "Completed",
-  },
-  {
-    id: 2,
-    amount: 1000.0,
-    timestamp: "2023-06-15 14:29:58",
-    fraud: true,
-    type: "Credit Card",
-    merchant: "Online Electronics",
-    location: "Online",
-    status: "Flagged",
-  },
-  {
-    id: 3,
-    amount: 75.5,
-    timestamp: "2023-06-15 14:28:45",
-    fraud: false,
-    type: "Mobile Payment",
-    merchant: "Coffee Shop",
-    location: "San Francisco, CA",
-    status: "Completed",
-  },
-  {
-    id: 4,
-    amount: 500.0,
-    timestamp: "2023-06-15 14:27:30",
-    fraud: false,
-    type: "Wire Transfer",
-    merchant: "John Doe",
-    location: "Chicago, IL",
-    status: "Pending",
-  },
-  {
-    id: 5,
-    amount: 150.0,
-    timestamp: "2023-06-15 14:26:15",
-    fraud: false,
-    type: "ACH",
-    merchant: "Utility Company",
-    location: "Boston, MA",
-    status: "Completed",
-  },
-];
 
 export const Dashboard = () => {
-  const [historyFilter, setHistoryFilter] = useState("all");
-  const [modelOutcomeFilter, setModelOutcomeFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("dashboard");
-  console.log(historyFilter, modelOutcomeFilter);
 
   const renderContent = () => {
     switch (activeTab) {
@@ -253,79 +190,7 @@ export const Dashboard = () => {
               </Card>
             </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Detailed Transaction Feed</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex justify-between mb-4">
-                  <Select onValueChange={setHistoryFilter}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Transaction History" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="24h">Last 24 Hours</SelectItem>
-                      <SelectItem value="7d">Last 7 Days</SelectItem>
-                      <SelectItem value="30d">Last 30 Days</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select onValueChange={setModelOutcomeFilter}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Model Outcome" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="fraud">Fraud</SelectItem>
-                      <SelectItem value="non-fraud">Non-Fraud</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <ScrollArea className="h-[400px]">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Amount</TableHead>
-                        <TableHead>Timestamp</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Merchant</TableHead>
-                        <TableHead>Location</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Fraud</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {transactionData.map((transaction) => (
-                        <TableRow key={transaction.id}>
-                          <TableCell>
-                            ${transaction.amount.toFixed(2)}
-                          </TableCell>
-                          <TableCell>{transaction.timestamp}</TableCell>
-                          <TableCell>{transaction.type}</TableCell>
-                          <TableCell>{transaction.merchant}</TableCell>
-                          <TableCell>{transaction.location}</TableCell>
-                          <TableCell>{transaction.status}</TableCell>
-                          <TableCell>
-                            <Badge
-                              className={`${
-                                transaction.fraud
-                                  ? "bg-red-500 hover:bg-red-500"
-                                  : "bg-blue-500 hover:bg-blue-500 "
-                              } text-white hover:text-white`}
-                              variant={
-                                transaction.fraud ? "destructive" : "secondary"
-                              }
-                            >
-                              {transaction.fraud ? "Fraud" : "Non-Fraud"}
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </ScrollArea>
-              </CardContent>
-            </Card>
+            <AnimatedTable />
           </>
         );
       case "reports":
